@@ -11,20 +11,22 @@ public class Logout extends HttpServlet
     public static ArrayList<Account> accounts = new ArrayList<Account>();
     
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException{
-        resp.setContentType("text/plain");
+        resp.setContentType("text/html");
         var pw = resp.getWriter();
         var sess = req.getSession();
         var username = sess.getAttribute("username");
         
         if(username == null) {
-            pw.print("No one to logout.");
+            pw.print("No one to logout.</br>");
+            pw.printf("<a href=\"http://localhost:2020/srv/home\">Home</a>");
             return;
         }
         
-        pw.println("Logging out of " + username);
-        pw.println("Cya " + sess.getAttribute("realName"));
+        pw.println("Logging out of " + username + "</br>");
+        pw.println("Cya " + sess.getAttribute("realName") + "</br>");
         sess.setAttribute("username", null);
         sess.setAttribute("realName", null);
+        pw.printf("<a href=\"http://localhost:2020/srv/home\">Home</a>");
     }
 
 }

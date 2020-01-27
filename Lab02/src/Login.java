@@ -8,15 +8,15 @@ import javax.servlet.http.HttpServletResponse;
 public class Login extends HttpServlet
 {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException{
-        resp.setContentType("text/plain");
+        resp.setContentType("text/html");
         var pw = resp.getWriter();
         var name = req.getParameter("user");
         var password = req.getParameter("pass");
         if( name == null ){
-            pw.printf("No username provided");
+            pw.printf("No username provided</br>");
         }
         else if( password == null) {
-            pw.printf("No password provided");
+            pw.printf("No password provided</br>");
         }
         else {
             //Needs to check existing accounts
@@ -30,14 +30,16 @@ public class Login extends HttpServlet
             }
             
             if(account == null) {
-                pw.printf("That account does not exist!");
+                pw.printf("That username or password does not exist!");
+                pw.printf("<a href = \"http://localhost:2020/srv/home\" >Home</a>");
                 return;
             }
             
             sess.setAttribute("username", account.userName);
             sess.setAttribute("realName", account.name);
-            pw.printf("Logged in as " + name);
+            pw.printf("Logged in as " + name + "</br>");
         }
+        pw.printf("<a href=\"http://localhost:2020/srv/home\">Home</a>");
     }
 
 }

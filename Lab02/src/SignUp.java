@@ -11,7 +11,7 @@ public class SignUp extends HttpServlet
     public static ArrayList<Account> accounts = new ArrayList<Account>();
     
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException{
-        resp.setContentType("text/plain");
+        resp.setContentType("text/html");
         var pw = resp.getWriter();
         var name = req.getParameter("user");
         var password = req.getParameter("pass");
@@ -19,8 +19,20 @@ public class SignUp extends HttpServlet
         
         if( name == null ){
             pw.printf("No username provided");
-        } 
-        else if(password == null) {
+        }
+        else {
+            for (int i = accounts.size() - 1; i >= 0; i--)
+            {
+                if (name.equals(accounts.get(i).userName))
+                {
+                    pw.print("Account already exists. </br>");
+                    pw.printf("<a href=\"http://localhost:2020/srv/home\">Home</a>");
+                    return;
+                }
+            }
+        }
+        
+        if(password == null) {
             pw.printf("No password provided");
         }
         else if(realName == null) {
@@ -35,6 +47,7 @@ public class SignUp extends HttpServlet
             
             pw.printf("Logged in as " + acc.userName + "\nWelcome " + realName);
         }
+        pw.printf("<a href=\"http://localhost:2020/srv/home\">Home</a>");
     }
 
 }
