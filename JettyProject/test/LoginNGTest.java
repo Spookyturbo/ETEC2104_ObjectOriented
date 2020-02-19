@@ -146,7 +146,7 @@ public class LoginNGTest {
     @Test
     public void testExistingSignup() throws Exception {
         String firstUser = fetch("/srv/signup?user=Cat&pass=1234&name=Andy");
-        String secondUser = fetch("/srv/signup?user=Cat&pass=1234&name=Andy");
+        String secondUser = fetch("/srv/signup?user=Cat&pass=234&name=Any");
         assertTrue(secondUser.contains("Account already exists."));
     }
     
